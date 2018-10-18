@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+'''
 import pandas as pd
 import pymysql.cursors
 import pymysql
@@ -161,6 +162,14 @@ for item in recommandList:#[相似度总和,电影id# ]
     rows.append(movie2)
 print(rows)
 table.add_rows(rows)
+print(table.draw())
+'''
+from texttable import Texttable
+table = Texttable()
+table.set_deco(Texttable.HEADER)
+table.set_cols_dtype(["t", "t", "t", "t"])
+table.set_cols_align(["l", "l", "l", "l"])
+table.add_rows([["a","b","c","d"],["aa","bb","cc","dd"]])
 print(table.draw())
 
 

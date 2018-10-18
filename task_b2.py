@@ -74,6 +74,8 @@ class CF:
         self.getPrecision(userId)
 
     def format_user_table(self):
+        self.name_movie_rate_Dict = {}
+        self.movie_name = {}
         for i in ratings:
             tmp = (i[1], float(i[2]) / 5)
             if (i[0] in self.name_movie_rate_Dict):
@@ -84,6 +86,7 @@ class CF:
                 self.movie_name[i[1]].append(i[0])
             else:
                 self.movie_name[i[1]] = [i[0]]
+
 
     def getNearestNeighbor(self, userId):
         neighbors = []
@@ -138,6 +141,7 @@ class CF:
             self.recommandList.append([recommandDict[key], key])
         self.recommandList.sort(reverse=True)
         self.recommandList = self.recommandList[:self.n]
+        print(self.recommandList)
 
     def getPrecision(self, userId):
         user = [i[0] for i in self.name_movie_rate_Dict[userId]]
@@ -170,17 +174,22 @@ class CF:
                 if i[0] == item[1]:
                     movie = i
                     break
-            for i in self.movie_name[item[1]]:
-                if i in neighbors_id:
-                    fromID.append(i)
-            movie.append(fromID)
-            rows.append(movie)
-        table.add_rows(rows)
-        print(table.draw())
+        print("****", movie)
+
+#            for i in self.movie_name[item[1]]:
+#                if i in neighbors_id:
+#                    fromID.append(i)
+#            movie.append(fromID)
+#            rows.append(movie)
+        #print(rows)
+        #table.add_rows(rows)
+        #print(table.draw())
 
 start = time.clock()
 demo = CF(movies, ratings, k=20)
-demo.recommendByName("88180115")
+demo.recommendByName("99550697")
+demo.getrecommandList("99550697")
+
 print("推荐列表为：")
 demo.showTable()
 print("处理的数据为%d条" % (len(demo.ratings)))
